@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue Ejs Test</title>
+    <link href="/ejsAssets/css.css" rel="stylesheet" />
+    <link href="/ejsAssets/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="/ejsAssets/vuetify.min.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-main>
+          <v-container fluid>
+            <div class="mb-3">
+              <v-card color="basil" flat>
+
+                 <!-- headerr -->
+                    <!-- <v-card style="background-color: white !important" class="pa-2"> -->
+                      <!-- <v-row>
+                        <v-col class="d-inline-flex" align-self="center">
+                          <v-avatar>
+                            <img
+                              src="/ejsAssets/images/Lohia_Logo.png"
+                              alt="LOGO"
+                            >
+                          </v-avatar>
+                          <h1 class="head text-center">BREAKDOWN REPORT</h1>
+                        </v-col>
+                      </v-row>
+                      <v-divider></v-divider>
+                      <div v-if="infoData && infoData['date'] && infoData['date']['start'] && infoData['date']['end']" class="pa-2">
+                        <v-row  class="pa-1 d-flex justify-space-between">
+                          <v-col
+                            class="title d-flex justify-left"
+                            >Start Date: {{new Date(infoData['date']['start']).toDateString()}} 
+                          </v-col>
+                          <v-col
+                            class="title justify-right text-right"
+                          >
+                          End Date: {{new Date(infoData['date']['end']).toDateString()}}
+                          </v-col>
+                        </v-row> -->
+                        <v-card style="background-color: white !important" class="pa-2">
+                        <v-container>
+                          <v-row class="mb-5" justify="center">
+                              <img src="/ejsAssets/images/Lohia_Logo.png"
+                                alt="LOGO"
+                                width="300px">
+                          </v-row>
+                          
+                        </v-container>
+                        <v-container>
+                        <v-card elevation="3" style="background-color: white !important" class="pa-5">
+                          <v-row>
+                          <v-row class="mt-5 mb-5" justify="center">
+                              <h1 class="text-uppercase" style="color:#002160;">
+                
+                                BREAKDOWN REPORT</h1>
+                          </v-row>
+                            
+                          </v-row>
+                          </v-card>
+                          </v-container>
+                        <div class="pa-2 mt-4">
+                          <v-row  class="pa-1 d-flex justify-space-between">
+                            <v-col
+                              class="title d-flex justify-left">
+                            <h4 class="text-uppercase" style="color:#002160;">Start Date: {{new Date(infoData['date']['start']).toDateString()}} </h4>
+                            </v-col>
+                            <v-col
+                              class="title justify-right text-right">
+                            <h4 class="text-uppercase" style="color:#002160;">End Date: {{new Date(infoData['date']['end']).toDateString()}} </h4>
+                            </v-col>
+                  
+                          
+                          </v-row>
+                          </div>
+
+                        <v-divider></v-divider>
+                      </v-card>
+                        <div class="printmedia">
+                        </div>
+                        <v-row v-for="item in infoData['parameters']" class="pt-1 d-flex justify-space-between">
+                          <v-col
+                            class=" subtitle mt-2 d-flex justify-start"
+                            cols="12"
+                            sm="12"
+                            md="12"
+                            lg="12"
+                          > <h6 class="subtitle-head">{{item["name"]}}:</h6> <span> {{item["value"].toString()}}
+                           </span></v-col
+                          >
+                
+                        </v-row>
+                      </div>
+                    </v-card>
+                  <!-- headerr -->
+
+
+                  <!-- <v-card v-if="infoData && infoData['date'] && infoData['date']['start'] && infoData['date']['end']">
+                    Start Date: {{new Date(infoData['date']['start'])}}  <br> 
+                    End Date: {{new Date(infoData['date']['end'])}}
+                    <div v-for="item in infoData['parameters']">
+                      {{item["name"]}}: {{item["value"].toString()}} <br>
+                    </div>
+                  </v-card>
+                  <v-card v-if="infoData && startDate && startTime && endDate && endTime">
+                    ({{startTime}} {{startDate}} to {{endTime}} {{endDate}})
+                  </v-card> -->
+               
+                  <div class="printmedia">
+                  </div>
+               <!-- <v-card> -->
+
+                <div id="counter-wrapper">
+                  <v-row align="center" class="pa-3">
+                    <v-col v-if="counterText && counterText['TOTAL DURATION']">
+                      <v-card light elevation="6">
+                        <v-card-text>
+                          <div class="d-flex flex-no-wrap justify-space-between">
+                            <div>
+                              <span class=""><small class="font-weight-bold">Total Breakdown Duration:</small></span>
+                              <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                {{ counterText['TOTAL DURATION'] }} mins
+                              </p>
+                            </div>
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                    <v-col v-if="counterText && counterText['TOTAL REASONS']">
+                      <v-card light elevation="6">
+                        <v-card-text>
+                          <div class="d-flex flex-no-wrap justify-space-between">
+                            <div>
+                              <span class=""><small class="font-weight-bold">Total Breakdown Reasons:</small></span>
+                              <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                {{ counterText['TOTAL REASONS'] }}
+                              </p>
+                            </div>
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </div>
+
+
+                <!-- table data -->
+                <div class="my-5 ma-2" v-if="counterTable && counterTable['MACHINE WISE DATA']">
+                  <v-data-table
+                    :headers="counterTable['MACHINE WISE DATA'].column"
+                    :items="counterTable['MACHINE WISE DATA'].row"
+                    :server-items-length="counterTable['MACHINE WISE DATA'].row.length"
+                    :items-per-page="counterTable['MACHINE WISE DATA'].row.length"
+                    hide-default-footer
+                    class="elevation-5"
+                  >
+                    <template v-slot:top>
+                      <v-toolbar flat>
+                        <v-toolbar-title>MACHINE-WISE BREAKDOWN DATA</v-toolbar-title>
+                      </v-toolbar>
+                    </template>
+                  </v-data-table>
+                </div>
+                <!-- table data -->
+                <div class="printmedia">
+                </div>
+                <!-- table data -->
+                <div class="my-5 ma-2" v-if="counterTable && counterTable['OVERALL MOST OCCURED REASON']">
+                  <v-data-table
+                    :headers="counterTable['OVERALL MOST OCCURED REASON'].column"
+                    :items="counterTable['OVERALL MOST OCCURED REASON'].row"
+                    :server-items-length="counterTable['OVERALL MOST OCCURED REASON'].row.length"
+                    :items-per-page="counterTable['OVERALL MOST OCCURED REASON'].row.length"
+                    hide-default-footer
+                    class="elevation-5"
+                  >
+                    <template v-slot:top>
+                      <v-toolbar flat>
+                        <v-toolbar-title>OVERALL MOST OCCURED REASON</v-toolbar-title>
+                      </v-toolbar>
+                    </template>
+                  </v-data-table>
+                </div>
+                <!-- table data -->
+                <div class="printmedia">
+                </div>
+                
+                  <!-- counter card -->
+                <!-- <div id="counter-wrapper">
+
+                  <v-row align="center" class="pa-3">
+                    <v-col v-if="totalDuration" cols="6" sm="12" lg="2">
+                      <v-card light elevation="6">
+                        <v-card-text>
+                          <div class="d-flex flex-no-wrap justify-space-between">
+                            <div>
+                              <span class=""><small class="font-weight-bold">Total Breakdown Duration:</small></span>
+                              <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                {{ totalDuration }} mins
+                              </p>
+                            </div>
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                  
+                  <v-row
+                    v-if="machineWiseData && machineWiseData.length"
+                    align="center"
+                    class="pa-3"
+                  >
+                    <v-col
+                      v-for="machineData in machineWiseData"
+                      :key="machineData.machineName"
+                      cols="12"
+                      sm="12"
+                      md="6"
+                      lg="3"
+                      class="mb-auto"
+                    >
+                      <v-card light elevation="6">
+                        <v-card-text>
+                          <div class="d-flex justify-space-between flex-wrap">
+                            <div>
+                              <span class=""><small>Machine Name:</small></span>
+                              <v-card-title class="pa-0 text--primary">
+                                {{ machineData.machineName }}</v-card-title
+                              >
+                            </div>
+                            <div>
+                              <span class=""><small>Machine Duration:</small></span>
+                              <v-card-title class="pa-0 text--primary">
+                                {{ machineData.breakdownDuration }}
+                                <span class="px-2">mins</span></v-card-title
+                              >
+                            </div>
+                          </div>
+                          <v-divider class="py-1"></v-divider>
+                          <div
+                            v-for="reason in machineData.mostOccuredBreakdown"
+                            :key="reason.name"
+                          >
+                            <h3 class="text--primary">Most Occured Breakdown</h3>
+                            <v-row>
+                              <v-col cols="12" sm="12" lg="8">
+                                <span class=""><small>Reason Name:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ reason.name }}
+                                </p>
+                                <span class=""><small>Reason Count:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ reason.count }}
+                                </p>
+                              </v-col>
+                              <v-col cols="12" sm="12" lg="4">
+                                <span class=""><small>Duration:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ reason.duration }} mins
+                                </p>
+                              </v-col>
+                            </v-row>
+              
+                            <v-divider class="py-1"></v-divider>
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                  <v-row align="center" class="pa-3">
+                    <v-col
+                      v-if="overAllMostOccuredReason && overAllMostOccuredReason.length"
+                      cols="12"
+                    >
+                      <v-card light elevation="6">
+                        <v-card-text>
+                          <h3 class="text--primary">Over All Most Occured Breakdown</h3>
+                          <v-row align="center" class="mold-wrapper">
+                            <v-col
+                              v-for="mostOccuredReason in overAllMostOccuredReason"
+                              :key="mostOccuredReason.name"
+                              cols="12"
+                              sm="12"
+                              md="4"
+                              lg="3"
+                              xl="2"
+                            >
+                              <span class=""><small>Reason Name:</small></span>
+                              <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                {{ mostOccuredReason.name }}
+                              </p>
+                              <span class=""><small>Reason Count:</small></span>
+                              <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                {{ mostOccuredReason.count }}
+                              </p>
+                              <span class=""><small>Duration:</small></span>
+                              <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                {{ mostOccuredReason.duration }} mins
+                              </p>
+                            </v-col>
+                          </v-row>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </div> -->
+                <!-- counter card -->
+                <div class="printmedia">
+                </div>
+                <!-- graph data -->
+                <div class="ma-2">
+                  <v-card elevation="5" class="my-5" v-if="graphData.stackGraph && graphData.stackGraph.length">
+                    
+                    <h2 class="text-uppercase pl-5 py-3">graph</h2>
+                    <div id="graph"></div>
+                  </v-card>
+                   <!-- <v-card v-else elevation="5" class="my-5">
+                        <h2 class="pl-5 py-3">
+                          No Data found for  graph
+                        </h2>
+                  </v-card> -->
+                </div>
+                <!-- graph data -->
+                <div class="printmedia">
+                </div>
+                <!-- pie data -->
+                <div class="ma-2">
+                  <div
+                    elevation="5"
+                    class="my-5"
+                    v-if="graphData && graphData.pieChart && graphData.pieChart.length"
+                    ><v-row>
+                      <v-col
+                        cols="6"
+                        sm="6"
+                        lg="6"
+                        v-for="(pie, index) in graphData.pieChart"
+                        :key="index"
+                      >
+                      <v-card>
+
+                        <h2 class="text-uppercase pl-5 py-3">
+                          {{ pie.name }}
+                        </h2>
+                        <div :id="index" class="d-flex justify-center">
+                        </div>
+                        
+                    </v-card>
+                    <div v-if="(index+1) % 4 == 0">
+                      <div 
+                      class="printmedia"
+                      >
+                      </div></div>
+                        </v-col
+                      ></v-row
+                    >
+                  </div>
+                </div>
+                <!-- pie data -->
+                <div class="printmedia">
+                </div>
+                <!-- table data -->
+                <div class="my-5 ma-2" v-if="pdfTable && tableColumn && tableRow">
+                  <v-data-table
+                    :headers="tableColumn"
+                    :items="tableRow"
+                    :server-items-length="tableRow.length"
+                    :items-per-page="tableRow.length"
+                    hide-default-footer
+                    class="elevation-5"
+                  >
+                    <template v-slot:top>
+                      <v-toolbar flat>
+                        <v-toolbar-title>DETAILED REPORT</v-toolbar-title>
+                      </v-toolbar>
+                    </template>
+                  </v-data-table>
+                </div>
+                <!-- table data -->
+                <!-- </v-card> -->
+              </v-card>
+            </div>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+    <script src="/ejsAssets/plotly-2.8.3.min.js"></script>
+    <script src="/ejsAssets/vue.js"></script>
+    <script src="/ejsAssets/vuetify.js"></script>
+    <!-- <script src="/assets/colors.js"></script> -->
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data: {
+
+          infoData: JSON.parse('<%- infoData %>'),
+
+          //counter table
+          counterTable: JSON.parse('<%- counterPdfTable %>'),
+          counterText: JSON.parse('<%- counterText %>'),
+
+          //counter
+          counterData: JSON.parse('<%- counterData %>'),
+          machineWiseData: JSON.parse('<%- counterData %>').machineWiseData,
+          totalDuration: JSON.parse('<%- counterData %>').totalDuration,
+          overAllMostOccuredReason: JSON.parse('<%- counterData %>').overAllMostOccuredReason,
+
+          //pdfTable
+          // pdfTable: JSON.parse('<%- pdfTable %>'),
+          // tableColumn: JSON.parse('<%- pdfTable %>').column,
+          // tableRow: JSON.parse('<%- pdfTable %>').row,
+
+          //graph
+          graphData: JSON.parse('<%- graphData %>'),
+          stackLayout: {
+            barmode: "stack",
+            height: 650,
+            width: 850,
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(0,0,0,0)",
+          },
+          pieLayout: {
+            height: 285,
+            width: 500,
+            showlegend: true,
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(0,0,0,0)",
+          },
+        },
+        mounted: function () {
+
+          // console.log(infoData)
+
+          // if(infoData && infoData['date'] && infoData['date']['start'] && infoData['date']['end']){
+          //   startDate = new Date(infoData['date']['start']).getDate()
+          //   endDate = new Date(infoData['date']['end']).getDate()
+          //   startTime = new Date(infoData['date']['start']).getHours()+"."+new Date(infoData['date']['start']).getMinutes()
+          //   endTime = new Date(infoData['date']['end']).getHours()+"."+new Date(infoData['date']['end']).getMinutes()
+          // }
+
+          // console.log(startDate, startTime, endDate, endTime)
+
+          for (var i in this.graphData.pieChart) {
+            TESTER = document.getElementById(i);
+            Plotly.newPlot(TESTER, this.graphData.pieChart[i].data, this.pieLayout, {staticPlot: true, responsive: true});
+          }
+
+          graphPlot = document.getElementById("graph");
+          Plotly.newPlot(graphPlot, this.graphData.stackGraph, this.stackLayout, {staticPlot: true, responsive: true});
+        },
+      });
+    </script>
+  </body>
+</html>
+<style>
+  @media print {
+  .printmedia {
+    page-break-after: always !important;
+    margin-top: 30px;
+  }
+}
+</style>
+<style scoped>
+  .head {
+    width: 100%;
+    color: #00215f;
+    font-family: sans-serif;
+  }
+  .title {
+    color: #00215f;
+    font-size: large;
+    font-family:  sans-serif;
+  }
+  .subtitle {
+    color: #00215f;
+    font-size: medium;
+    font-family: sans-serif;
+  }
+  .subtitle-head {
+    padding-right: 8px;
+    color: #00215f;
+    font-size: medium;
+    font-family: sans-serif;
+  }
+</style>

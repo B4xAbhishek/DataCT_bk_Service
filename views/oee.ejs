@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue Ejs Test</title>
+    <link href="/ejsAssets/css.css" rel="stylesheet" />
+    <!-- <link href="/ejsAssets/css/materialdesignicons.min.css" rel="stylesheet" /> -->
+    <link href="/ejsAssets/vuetify.min.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-main>
+          <v-container>
+            <div class="mb-3">
+              <v-card color="basil" flat>
+
+                <!-- headerr -->
+                <v-card style="background-color: white !important" class="pa-2">
+                        <v-container>
+                          <v-row class="mb-5" justify="center">
+                              <img src="/ejsAssets/images/Lohia_Logo.png"
+                                alt="LOGO"
+                                width="300px">
+                          </v-row>
+                          
+                        </v-container>
+                        <v-container>
+                        <v-card elevation="3" style="background-color: white !important" class="pa-5">
+                          <v-row>
+                          <v-row class="mt-5 mb-5" justify="center">
+                              <h1 class="text-uppercase" style="color:#002160;">
+                
+                                OEE REPORT</h1>
+                          </v-row>
+                            
+                          </v-row>
+                          </v-card>
+                          </v-container>
+                        <div class="pa-2 mt-4">
+                          <v-row  class="pa-1 d-flex justify-space-between">
+                            <v-col
+                              class="title d-flex justify-left">
+                            <h4 class="text-uppercase" style="color:#002160;">Start Date: {{new Date(infoData['date']['start']).toDateString()}} </h4>
+                            </v-col>
+                            <v-col
+                              class="title justify-right text-right">
+                            <h4 class="text-uppercase" style="color:#002160;">End Date: {{new Date(infoData['date']['end']).toDateString()}} </h4>
+                            </v-col>
+                  
+                          
+                          </v-row>
+                          </div>
+
+                        <v-divider></v-divider>
+                      </v-card>
+                        <div class="printmedia">
+                        </div>
+                    <v-row v-for="item in infoData['parameters']" class="pt-1 d-flex justify-space-between">
+                      <v-col
+                        class=" subtitle mt-2 d-flex justify-start"
+                        cols="12"
+                        sm="12"
+                        md="12"
+                        lg="12"
+                      > <h6 class="subtitle-head">{{item["name"]}}:</h6> <span> {{item["value"].toString()}}
+                       </span></v-col
+                      >
+            
+                    </v-row>
+                  </div>
+                </v-card>
+              <!-- headerr -->
+              <div class="printmedia">
+              </div>
+
+            <div id="counter-wrapper">
+              <v-row align="center" class="pa-3">
+                <v-col v-if="counterText && counterText['TOTAL PRODUCTION COUNT']">
+                  <v-card light elevation="6">
+                    <v-card-text>
+                      <div class="d-flex flex-no-wrap justify-space-between">
+                        <div>
+                          <span class=""><small class="font-weight-bold">Total Production Count:</small></span>
+                          <p class="subtitle-2 mb-0 pa-0 text--primary">
+                            {{ counterText['TOTAL PRODUCTION COUNT'] }}
+                          </p>
+                        </div>
+                      </div>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+                <v-col v-if="counterText && counterText['TOTAL SHOT COUNT']">
+                  <v-card light elevation="6">
+                    <v-card-text>
+                      <div class="d-flex flex-no-wrap justify-space-between">
+                        <div>
+                          <span class=""><small class="font-weight-bold">Total Shot Count:</small></span>
+                          <p class="subtitle-2 mb-0 pa-0 text--primary">
+                            {{ counterText['TOTAL SHOT COUNT'] }}
+                          </p>
+                        </div>
+                      </div>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </div>
+              
+              <!-- table data -->
+            <div class="my-5 ma-2" v-if="counterTable && counterTable['MACHINE WISE DATA']">
+              <v-data-table
+                :headers="counterTable['MACHINE WISE DATA'].column"
+                :items="counterTable['MACHINE WISE DATA'].row"
+                :server-items-length="counterTable['MACHINE WISE DATA'].row.length"
+                :items-per-page="counterTable['MACHINE WISE DATA'].row.length"
+                hide-default-footer
+                class="elevation-5"
+              >
+                <template v-slot:top>
+                  <v-toolbar flat>
+                    <v-toolbar-title>MACHINE-WISE OEE DATA</v-toolbar-title>
+                  </v-toolbar>
+                </template>
+              </v-data-table>
+            </div>
+            <!-- table data -->
+            <div class="printmedia">
+            </div>
+            <!-- table data -->
+            <div class="my-5 ma-2" v-if="counterTable && counterTable['MOLD WISE DATA']">
+              <v-data-table
+                :headers="counterTable['MOLD WISE DATA'].column"
+                :items="counterTable['MOLD WISE DATA'].row"
+                :server-items-length="counterTable['MOLD WISE DATA'].row.length"
+                :items-per-page="counterTable['MOLD WISE DATA'].row.length"
+                hide-default-footer
+                class="elevation-5"
+              >
+                <template v-slot:top>
+                  <v-toolbar flat>
+                    <v-toolbar-title>MOLD-WISE OEE DATA</v-toolbar-title>
+                  </v-toolbar>
+                </template>
+              </v-data-table>
+            </div>
+            <!-- table data -->
+            <div class="printmedia">
+            </div>
+            <!-- table data -->
+            <div class="my-5 ma-2" v-if="counterTable && counterTable['OVERALL MOST OCCURED REASON']">
+              <v-data-table
+                :headers="counterTable['OVERALL MOST OCCURED REASON'].column"
+                :items="counterTable['OVERALL MOST OCCURED REASON'].row"
+                :server-items-length="counterTable['OVERALL MOST OCCURED REASON'].row.length"
+                :items-per-page="counterTable['OVERALL MOST OCCURED REASON'].row.length"
+                hide-default-footer
+                class="elevation-5"
+              >
+                <template v-slot:top>
+                  <v-toolbar flat>
+                    <v-toolbar-title>OVERALL MOST OCCURED REASON</v-toolbar-title>
+                  </v-toolbar>
+                </template>
+              </v-data-table>
+            </div>
+            <!-- table data -->
+              <!-- <v-card> -->
+                <!-- counter card -->
+                <!-- <div id="counter-wrapper">
+                    <v-row align="center" class="pa-3">
+                      <v-col v-if="totalProdCount" cols="6" sm="12" lg="2">
+                        <v-card light elevation="6">
+                          <v-card-text>
+                            <div class="d-flex flex-no-wrap justify-space-between">
+                              <div>
+                                <span class=""><small>Total Production Count:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ totalProdCount }}
+                                </p>
+                              </div>
+                            </div>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                      <v-col v-if="totalShotCount" cols="6" sm="12" lg="2">
+                        <v-card light elevation="6">
+                          <v-card-text>
+                            <div class="d-flex flex-no-wrap justify-space-between">
+                              <div>
+                                <span class=""><small>Total Shot Count:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ totalShotCount }}
+                                </p>
+                              </div>
+                            </div>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                      <v-col v-if="avgCycleTime" cols="6" sm="12" lg="2">
+                        <v-card light elevation="6">
+                          <v-card-text>
+                            <div class="d-flex flex-no-wrap justify-space-between">
+                              <div>
+                                <span class=""><small>Avg Cycle Time:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ avgCycleTime }}
+                                </p>
+                              </div>
+                            </div>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                      <v-col v-if="avgOEE" cols="6" sm="12" lg="2">
+                        <v-card light elevation="6">
+                          <v-card-text>
+                            <div class="d-flex flex-no-wrap justify-space-between">
+                              <div>
+                                <span class=""><small>Avg OEE:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ avgOEE }}
+                                </p>
+                              </div>
+                            </div>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                      <v-col v-if="avgPerformance" cols="6" sm="12" lg="2">
+                        <v-card light elevation="6">
+                          <v-card-text>
+                            <div class="d-flex flex-no-wrap justify-space-between">
+                              <div>
+                                <span class=""><small>Avg Performance:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ avgPerformance }}
+                                </p>
+                              </div>
+                            </div>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                    <v-row
+                      align="center"
+                      class="pa-3"
+                      v-if="machineWiseData && machineWiseData.length"
+                    >
+                      <v-col
+                        cols="12"
+                        sm="12"
+                        md="6"
+                        lg="3"
+                        class="mb-auto"
+                        v-for="moldData in machineWiseData"
+                        :key="moldData.name"
+                      >
+                        <v-card light elevation="6" class="">
+                          <v-card-text>
+                            <h3 class="text--primary">Machine Wise Data</h3>
+                            <div>
+                              <span class=""><small>Machine Name:</small></span>
+                              <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                {{ moldData.name }}
+                              </p>
+                              <v-divider class="py-1"></v-divider>
+                              <div v-for="(mold, index) in moldData.mold" :key="index">
+                                <span class=""><small>Mold Name:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ mold.name }}
+                                </p>
+                                <div class="d-flex justify-space-between flex-wrap">
+                                  <div>
+                                    <span class=""><small>Production Count:</small></span>
+                                    <v-card-title class="pa-0 text--primary">
+                                      {{ mold.pCount }}</v-card-title
+                                    >
+                                  </div>
+                                  <div>
+                                    <span class=""><small>Shot count:</small></span>
+                                    <v-card-title class="pa-0 text--primary">
+                                      {{ mold.sCount }}</v-card-title
+                                    >
+                                  </div>
+                                </div>
+                                <v-divider class="py-1"></v-divider>
+                              </div>
+                              <div>
+                                <h3 class="text--primary">Total</h3>
+                                <div class="d-flex justify-space-between flex-wrap">
+                                  <div>
+                                    <span class=""><small>Production Count:</small></span>
+                                    <v-card-title class="pa-0 text--primary">
+                                      {{ moldData.machinePCount }}</v-card-title
+                                    >
+                                  </div>
+                                  <div>
+                                    <span class=""><small>Shot count:</small></span>
+                                    <v-card-title class="pa-0 text--primary">
+                                      {{ moldData.machineSCount }}</v-card-title
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                
+                    <v-row
+                      align="center"
+                      class="pa-3"
+                      v-if="moldWiseData && moldWiseData.length"
+                    >
+                      <v-col cols="12">
+                        <v-card light elevation="6" class="">
+                          <v-card-text>
+                            <h3 class="text--primary">Mold Wise Data</h3>
+                            <v-row align="center" class="mold-wrapper">
+                              <v-col
+                                v-for="machineData in moldWiseData"
+                                :key="machineData.name"
+                                cols="12"
+                                sm="12"
+                                md="4"
+                                lg="3"
+                                xl="2"
+                              >
+                                <div>
+                                  <span class=""><small>Mold Name:</small></span>
+                                  <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                    {{ machineData.name }}
+                                  </p>
+                                </div>
+                                <div class="d-flex flex-wrap justify-space-between">
+                                  <div>
+                                    <span class=""><small>Production Count:</small></span>
+                                    <v-card-title class="pa-0 text--primary">
+                                      {{ machineData.moldPCount }}</v-card-title
+                                    >
+                                  </div>
+                                  <div>
+                                    <span class=""><small>Shot count:</small></span>
+                                    <v-card-title class="pa-0 text--primary">
+                                      {{ machineData.moldSCount }}</v-card-title
+                                    >
+                                  </div>
+                                </div>
+                              </v-col>
+                            </v-row>
+                          </v-card-text>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                    <v-row align="center" class="pa-3">
+                      <v-col cols="12" sm="12" lg="12">
+                        <v-card
+                          elevation="5"
+                          class="my-5"
+                          v-if="productivityGraph && productivityGraph.length"
+                        >
+                          <h2 class="text-uppercase pl-5 py-3">Productivity Graph</h2>
+                          <div id="counterGraph"></div> -->
+                          <!-- <Plotly
+                            :data="productivityGraph"
+                            :layout="layout"
+                            :displayModeBar="true"
+                          ></Plotly> -->
+                        <!-- </v-card>
+                      </v-col>
+                    </v-row>
+                  </div> -->
+                <!-- counter card -->
+                <div class="printmedia">
+                </div>
+                  <!-- graph -->
+                  <div class="ma-2" v-if="graphData && graphData.length">
+                    <div v-for="(item, index) in graphData" :key="index">
+                      <v-card
+                        elevation="5"
+                        class="my-5"
+                        v-if="item && item.paramData && item.paramData.length"
+                      >
+                        <h2 class="text-uppercase pl-5 py-3">{{ item.parameter }} graph</h2>
+                        <div :id="index"></div>
+                        <div v-if="(index+1) % 4 == 0">
+                          <div 
+                          class="printmedia"
+                          >
+                          </div></div>
+                        <!-- <Plotly
+                          :data="item.paramData"
+                          :layout="layout"
+                          :displayModeBar="true"
+                        ></Plotly> -->
+                    </v-card>
+                      <!-- <v-card v-else elevation="5" class="my-5">
+                        <h2 class="pl-5 py-3">
+                          No Data found for {{ item.parameter }} graph
+                        </h2>
+                      </v-card> -->
+                      <div class="printmedia">
+                      </div>
+                    </div>
+                  </div>
+                  <!-- graph -->
+                  <div class="printmedia">
+                  </div>
+                  <!-- table data -->
+                  <div class="my-5 ma-2" v-if="pdfTable && tableColumn && tableRow">
+                    <v-data-table
+                      :headers="tableColumn"
+                      :items="tableRow"
+                      :server-items-length="tableRow.length"
+                      :items-per-page="tableRow.length"
+                      hide-default-footer
+                      class="elevation-5"
+                    >
+                      <template v-slot:top>
+                        <v-toolbar flat>
+                          <v-toolbar-title>DETAILED REPORT</v-toolbar-title>
+                        </v-toolbar>
+                      </template>
+                    </v-data-table>
+                  </div>
+                  <!-- table data -->
+                <!-- </v-card> -->
+              </v-card>
+            </div>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+    <script src="/ejsAssets/plotly-2.8.3.min.js"></script>
+    <script src="/ejsAssets/vue.js"></script>
+    <script src="/ejsAssets/vuetify.js"></script>
+    <!-- <script src="/ejsAssets/colors.js"></script> -->
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data: {
+
+          infoData: JSON.parse('<%- infoData %>'),
+
+          //counter table
+          counterTable: JSON.parse('<%- counterPdfTable %>'),
+          counterText: JSON.parse('<%- counterText %>'),
+
+          //pdfTable
+          // pdfTable: JSON.parse('<%- pdfTable %>'),
+          // tableColumn: JSON.parse('<%- pdfTable %>').column,
+          // tableRow: JSON.parse('<%- pdfTable %>').row,
+
+
+          //counter
+          counterData: JSON.parse('<%- counterData %>'),
+          avgCycleTime: JSON.parse('<%- counterData %>').avgCycleTime,
+            avgOEE: JSON.parse('<%- counterData %>').avgOEE,
+            avgPerformance: JSON.parse('<%- counterData %>').avgPerformance,
+            totalProdCount: JSON.parse('<%- counterData %>').totalProdCount,
+            totalShotCount: JSON.parse('<%- counterData %>').totalShotCount, 
+            moldWiseData: JSON.parse('<%- counterData %>').moldWiseData,
+            productivityGraph: JSON.parse('<%- counterData %>').productivityGraph,
+          machineWiseData: JSON.parse('<%- counterData %>').machineWiseData,
+          counterLayout: {
+            height: 600,
+            width: 850,
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(0,0,0,0)",
+                xaxis: {
+                    title: 'Timestamp',
+                    showticklabels: true,
+                    automargin: true,
+                },
+                yaxis: {
+                    title: 'Readings',
+                },
+                },
+
+          //graph
+          graphData: JSON.parse('<%- graphData %>'),
+          graphLayout: {
+        // title: 'My Graph',
+        // plot_bgcolor: '#272727',
+        // paper_bgcolor: '#1E1E1E',
+            height: 650,
+            width: 850,
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(0,0,0,0)",
+        //margin: {t:0,r:0,b:0,l:20},
+        // font: {
+        //   color: '#fff',
+        // },
+        xaxis: {
+          title: 'Timestamp',
+          // linecolor: '#fff',
+          // gridcolor: '#ffffff1f',
+          showticklabels: true,
+          automargin: true,
+        },
+        yaxis: {
+          title: 'Readings',
+          // linecolor: '#fff',
+          // gridcolor: '#ffffff1f',
+        },
+      },
+        },
+        mounted: function () {
+            
+          // graphPlot = document.getElementById("counterGraph");
+          // Plotly.newPlot(graphPlot, this.productivityGraph, this.counterLayout, {staticPlot: true, responsive: true});
+          for (var i in this.graphData) {
+            TESTER = document.getElementById(i);
+            if(this.graphData[i] && this.graphData[i].paramData && this.graphData[i].paramData.length){
+              console.log(this.graphData[i].paramData)
+            Plotly.newPlot(TESTER, this.graphData[i].paramData, this.graphLayout, {staticPlot: true, responsive: true});
+            }
+          }
+        },
+      });
+    </script>
+  </body>
+</html>
+<style>
+  @media print {
+  .printmedia {
+    page-break-after: always;
+    margin-top: 30px;
+  }
+}
+</style>
+<style scoped>
+  .head {
+    width: 100%;
+    color: #00215f;
+    font-family: sans-serif;
+  }
+  .title {
+    color: #00215f;
+    font-size: large;
+    font-family:  sans-serif;
+  }
+  .subtitle {
+    color: #00215f;
+    font-size: medium;
+    font-family: sans-serif;
+  }
+  .subtitle-head {
+    padding-right: 8px;
+    color: #00215f;
+    font-size: medium;
+    font-family: sans-serif;
+  }
+</style>

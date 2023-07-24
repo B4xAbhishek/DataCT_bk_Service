@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue Ejs Test</title>
+    <link href="/ejsAssets/css.css" rel="stylesheet" />
+    <!-- <link href="/ejsAssets/css/materialdesignicons.min.css" rel="stylesheet" /> -->
+    <link href="/ejsAssets/vuetify.min.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-main>
+          <v-container>
+            <div class="mb-3">
+              <v-card color="basil" flat>
+
+                <!-- headerr -->
+                <v-card style="background-color: white !important" class="pa-2">
+                        <v-container>
+                          <v-row class="mb-5" justify="center">
+                              <img src="/ejsAssets/images/Lohia_Logo.png"
+                                alt="LOGO"
+                                width="300px">
+                          </v-row>
+                          
+                        </v-container>
+                        <v-container>
+                        <v-card elevation="3" style="background-color: white !important" class="pa-5">
+                          <v-row>
+                          <v-row class="mt-5 mb-5" justify="center">
+                              <h1 class="text-uppercase" style="color:#002160;">
+                
+                                REJECTION REPORT</h1>
+                          </v-row>
+                            
+                          </v-row>
+                          </v-card>
+                          </v-container>
+                        <div class="pa-2 mt-4">
+                          <v-row  class="pa-1 d-flex justify-space-between">
+                            <v-col
+                              class="title d-flex justify-left">
+                            <h4 class="text-uppercase" style="color:#002160;">Start Date: {{new Date(infoData['date']['start']).toDateString()}} </h4>
+                            </v-col>
+                            <v-col
+                              class="title justify-right text-right">
+                            <h4 class="text-uppercase" style="color:#002160;">End Date: {{new Date(infoData['date']['end']).toDateString()}} </h4>
+                            </v-col>
+                  
+                          
+                          </v-row>
+                          </div>
+
+                        <v-divider></v-divider>
+                      </v-card>
+                        <div class="printmedia">
+                        </div>
+                    <v-row v-for="item in infoData['parameters']" class="pt-1 d-flex justify-space-between">
+                      <v-col
+                        class=" subtitle mt-2 d-flex justify-start"
+                        cols="12"
+                        sm="12"
+                        md="12"
+                        lg="12"
+                      > <h6 class="subtitle-head">{{item["name"]==="MOULD"?"MATERIAL":item["name"]}}:</h6> <span> {{item["value"].toString()}}
+                       </span></v-col
+                      >
+            
+                    </v-row>
+                  </div>
+                </v-card>
+              <!-- headerr -->
+              <div class="printmedia">
+                </div>
+
+              <div id="counter-wrapper">
+                <v-row align="center" class="pa-3">
+                  <v-col v-if="counterText && counterText['TOTAL REJECTIONS']">
+                    <v-card light elevation="6">
+                      <v-card-text>
+                        <div class="d-flex flex-no-wrap justify-space-between">
+                          <div>
+                            <span class=""><small class="font-weight-bold">Total Rejections:</small></span>
+                            <p class="subtitle-2 mb-0 pa-0 text--primary">
+                              {{ counterText['TOTAL REJECTIONS'] }}
+                            </p>
+                          </div>
+                        </div>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </div>
+                
+                <!-- table data -->
+              <div class="my-5 ma-2" v-if="counterTable && counterTable['MACHINE WISE DATA']">
+                <v-data-table
+                  :headers="counterTable['MACHINE WISE DATA'].column"
+                  :items="counterTable['MACHINE WISE DATA'].row"
+                  :server-items-length="counterTable['MACHINE WISE DATA'].row.length"
+                  :items-per-page="counterTable['MACHINE WISE DATA'].row.length"
+                  hide-default-footer
+                  class="elevation-5"
+                >
+                  <template v-slot:top>
+                    <v-toolbar flat>
+                      <v-toolbar-title>MACHINE-WISE REJECTION DATA</v-toolbar-title>
+                    </v-toolbar>
+                  </template>
+                </v-data-table>
+              </div>
+              <!-- table data -->
+              <div class="printmedia">
+              </div>
+              <!-- table data -->
+              <div class="my-5 ma-2" v-if="counterTable && counterTable['MOLD WISE DATA']">
+                <v-data-table
+                  :headers="counterTable['MOLD WISE DATA'].column"
+                  :items="counterTable['MOLD WISE DATA'].row"
+                  :server-items-length="counterTable['MOLD WISE DATA'].row.length"
+                  :items-per-page="counterTable['MOLD WISE DATA'].row.length"
+                  hide-default-footer
+                  class="elevation-5"
+                >
+                  <template v-slot:top>
+                    <v-toolbar flat>
+                      <v-toolbar-title>MOLD-WISE REJECTION DATA</v-toolbar-title>
+                    </v-toolbar>
+                  </template>
+                </v-data-table>
+              </div>
+              <!-- table data -->
+              <div class="printmedia">
+              </div>
+              <!-- table data -->
+              <div class="my-5 ma-2" v-if="counterTable && counterTable['OVERALL MOST OCCURED REASON']">
+                <v-data-table
+                  :headers="counterTable['OVERALL MOST OCCURED REASON'].column"
+                  :items="counterTable['OVERALL MOST OCCURED REASON'].row"
+                  :server-items-length="counterTable['OVERALL MOST OCCURED REASON'].row.length"
+                  :items-per-page="counterTable['OVERALL MOST OCCURED REASON'].row.length"
+                  hide-default-footer
+                  class="elevation-5"
+                >
+                  <template v-slot:top>
+                    <v-toolbar flat>
+                      <v-toolbar-title>OVERALL MOST OCCURED REASON</v-toolbar-title>
+                    </v-toolbar>
+                  </template>
+                </v-data-table>
+              </div>
+              <!-- table data -->
+                <!-- counter card -->
+                <!-- <div id="counter-wrapper">
+                  <v-row align="center" class="pa-3">
+                    <v-col v-if="totalRejctions" cols="6" sm="12" lg="2">
+                      <v-card light elevation="6">
+                        <v-card-text>
+                          <div class="d-flex flex-no-wrap justify-space-between">
+                            <div>
+                              <span class=""><small class="font-weight-bold">Total Rejections:</small></span>
+                              <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                {{ totalRejctions }}
+                              </p>
+                            </div>
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                  <v-row
+                    v-if="machineWiseData && machineWiseData.length"
+                    align="center"
+                    class="pa-3"
+                  >
+                    <v-col
+                      v-for="machineData in machineWiseData"
+                      :key="machineData.machineName"
+                      cols="12"
+                      sm="12"
+                      md="6"
+                      lg="3"
+                      class="mb-auto"
+                    >
+                      <v-card light elevation="6">
+                        <v-card-text>
+                          <div class="d-flex justify-space-between">
+                            <div>
+                              <span class=""><small>Machine Name:</small></span>
+                              <v-card-title class="pa-0 text--primary">
+                                {{ machineData.machineName }}</v-card-title
+                              >
+                            </div>
+                            <div>
+                              <span class=""><small>Rejection Count:</small></span>
+                              <v-card-title class="pa-0 text--primary">
+                                {{ machineData.rejectionCount }}</v-card-title
+                              >
+                            </div>
+                          </div>
+                          <v-divider class="py-1"></v-divider>
+                          <div
+                            v-for="reason in machineData.mostOccuredRejections"
+                            :key="reason.name"
+                          >
+                            <h3 class="text--primary">Most Occured Rejection</h3>
+                            <span class=""><small>Reason Name:</small></span>
+                            <p class="subtitle-2 mb-0 pa-0 text--primary">
+                              {{ reason.name }}
+                            </p>
+                            <span class=""><small>Reason Count:</small></span>
+                            <p class="subtitle-2 mb-0 pa-0 text--primary">
+                              {{ reason.count }}
+                            </p>
+                            <v-divider class="py-1"></v-divider>
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                  <v-row align="center" class="pa-3">
+                    <v-col
+                      v-if="overAllmostOccuredRejection && overAllmostOccuredRejection.length"
+                      cols="12"
+                    >
+                      <v-card light elevation="6">
+                        <v-card-text>
+                          <h3 class="text--primary">Over All Most Occured Rejection</h3>
+                          <v-row align="center" class="">
+                            <v-col
+                              v-for="mostOccuredReason in overAllmostOccuredRejection"
+                              :key="mostOccuredReason.name"
+                              cols="12"
+                              sm="12"
+                              md="4"
+                              lg="3"
+                              xl="2"
+                            >
+                              <span class=""><small>Reason Name:</small></span>
+                              <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                {{ mostOccuredReason.name }}
+                              </p>
+                              <span class=""><small>Reason Count:</small></span>
+                              <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                {{ mostOccuredReason.count }}
+                              </p>
+                            </v-col>
+                          </v-row>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                  <v-row
+                    v-if="mouldWiseData && mouldWiseData.length"
+                    align="center"
+                    class="pa-3"
+                  >
+                    <v-col
+                      v-for="moldData in mouldWiseData"
+                      :key="moldData.mouldName"
+                      cols="12"
+                      sm="12"
+                      md="6"
+                      lg="3"
+                      class="mb-auto"
+                    >
+                      <v-card light elevation="6">
+                        <v-card-text>
+                          <h3 class="text--primary">Mold Wise Data</h3>
+                          <div class="d-flex justify-space-between">
+                            <v-row>
+                              <v-col cols="12" sm="12" lg="8">
+                                <div>
+                                  <span class=""><small>Mould Name:</small></span>
+                                  <v-card-title class="pa-0 text--primary">
+                                    {{ moldData.mouldName }}</v-card-title
+                                  >
+                                </div>
+                              </v-col>
+              
+                              <v-col cols="12" sm="12" lg="4">
+                                <div>
+                                  <span class=""><small>Rejection Count:</small></span>
+                                  <v-card-title class="pa-0 text--primary">
+                                    {{ moldData.rejectionCount }}</v-card-title
+                                  >
+                                </div>
+                              </v-col>
+                            </v-row>
+                          </div>
+                          <v-divider class="py-1"></v-divider>
+                          <h3 class="text--primary py-3">Most Occured Rejection</h3>
+                          <div
+                            v-for="reason in moldData.mostOccuredRejections"
+                            :key="reason.name"
+                          >
+                            <v-row>
+                              
+                              <v-col cols="12" sm="12" lg="8">
+                                <span class=""><small>Reason Name:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ reason.name }}
+                                </p>
+                              </v-col>
+                              <v-col cols="12" sm="12" lg="4">
+                                <span class=""><small>Reason Count:</small></span>
+                                <p class="subtitle-2 mb-0 pa-0 text--primary">
+                                  {{ reason.count }}
+                                </p>
+                              </v-col>
+                            </v-row>
+              
+                            <v-divider class="py-1"></v-divider>
+                          </div>
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </div> -->
+              
+                  <!-- <v-row v-if="mostOccuredRejection && mostOccuredRejection.length"  align="center" class="pa-3">
+                    <v-col  cols="6" sm="4" lg="2">
+                      <v-card  light elevation="6" class="success-gradient-card">
+                        <div class="d-flex flex-wrap ">
+                           <v-card-title
+                              class="text-h5 font-weight-black pa-2 pb-1"
+                            
+                            >mostOccuredRejection</v-card-title>
+                          <div v-for="mostOccuredReason in mostOccuredRejection" :key="mostOccuredReason.name">
+                            <v-card-title
+                              class="text-h5 font-weight-black pa-2 pb-1"
+                              v-text="mostOccuredReason.duration"
+                            ></v-card-title>
+              
+                            <v-card-title
+                              class="
+                                text-h5
+                                font-weight-bold
+                                text-md-h5 text-lg-h5 text-xl-h5
+                                pa-2
+                                pt-1
+                              "
+                              v-text="mostOccuredReason.name"
+                            ></v-card-title>
+                          </div>
+                        </div>
+                      </v-card>
+                    </v-col>
+                  </v-row> -->
+                
+                <!-- counter card -->
+                <div class="printmedia">
+                </div>
+                <!-- graph data -->
+                <div class="ma-2">
+                  <v-card elevation="5" class="my-5" v-if="graphData && graphData.stackGraph && graphData.stackGraph.length">
+                    
+                    <h2 class="text-uppercase pl-5 py-3">graph</h2>
+                    <div id="graph"></div>
+                  </v-card>
+                   <v-card v-else elevation="5" class="my-5">
+                        <h2 class="pl-5 py-3">
+                          No Data found for  graph
+                        </h2>
+                  </v-card>
+                </div>
+                <!-- graph data -->
+                <div class="printmedia">
+                </div>
+                <!-- pie data -->
+                <div class="ma-2">
+                  <div
+                    elevation="5"
+                    class="my-5"
+                    v-if="graphData && graphData.pieChart && graphData.pieChart.length"
+                    ><v-row>
+                      <v-col
+                        cols="6"
+                        sm="6"
+                        lg="6"
+                        v-for="(pie, index) in graphData.pieChart"
+                        :key="index"
+                      >
+                      <v-card>
+
+                        <h2 class="text-uppercase pl-5 py-3">
+                          {{ pie.name }}
+                        </h2>
+                        <div :id="index" class="d-flex justify-center">
+                        </div>
+                        
+                    </v-card>
+                    <div v-if="(index+1) % 4 == 0">
+                      <div 
+                      class="printmedia"
+                      >
+                      </div></div>
+                        </v-col
+                      ></v-row
+                    >
+                  </div>
+                </div>
+                <!-- pie data -->
+                <div class="printmedia">
+                </div>
+                <!-- table data -->
+                <div class="my-5 ma-2" v-if="pdfTable && tableColumn && tableRow">
+                  <v-data-table
+                    :headers="tableColumn"
+                    :items="tableRow"
+                    :server-items-length="tableRow.length"
+                    :items-per-page="tableRow.length"
+                    hide-default-footer
+                    class="elevation-5"
+                  >
+                    <template v-slot:top>
+                      <v-toolbar flat>
+                        <v-toolbar-title>DETAILED REPORT</v-toolbar-title>
+                      </v-toolbar>
+                    </template>
+                  </v-data-table>
+                </div>
+                <!-- table data -->
+               
+              </v-card>
+            </div>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+    <script src="/ejsAssets/plotly-2.8.3.min.js"></script>
+    <script src="/ejsAssets/vue.js"></script>
+    <script src="/ejsAssets/vuetify.js"></script>
+    <!-- <script src="/ejsAssets/colors.js"></script> -->
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data: {
+
+          infoData: JSON.parse('<%- infoData %>'),
+
+          //counter table
+          counterTable: JSON.parse('<%- counterPdfTable %>'),
+          counterText: JSON.parse('<%- counterText %>'),
+
+          // counter
+          counterData: JSON.parse('<%- counterData %>'),
+          machineWiseData: JSON.parse('<%- counterData %>').machineCounters.machineWiseData,
+          mouldWiseData: JSON.parse('<%- counterData %>').mouldCounters.mouldWiseData,
+          totalRejctions: JSON.parse('<%- counterData %>').machineCounters.totalRejctions,
+          overAllmostOccuredRejection: JSON.parse('<%- counterData %>').machineCounters.overAllmostOccuredRejection,
+
+          //pdfTable
+          // pdfTable: JSON.parse('<%- pdfTable %>'),
+          // tableColumn: JSON.parse('<%- pdfTable %>').column,
+          // tableRow: JSON.parse('<%- pdfTable %>').row,
+
+
+          // pie
+         
+          pieLayout: {
+            height: 285,
+            width: 500,
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(0,0,0,0)",
+            showlegend: true,
+          },
+
+          //graph
+          graphData: JSON.parse('<%- graphData %>') || {},
+          stackLayout: {
+            barmode: "stack",
+            height: 650,
+            width: 850,
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(0,0,0,0)",
+          },
+        },
+        mounted: function () {
+          for (var i in this.graphData.pieChart) {
+            TESTER = document.getElementById(i);
+            Plotly.newPlot(TESTER, this.graphData.pieChart[i].data, this.pieLayout, {staticPlot: true, responsive: true});
+          }
+          graphPlot = document.getElementById("graph");
+          Plotly.newPlot(graphPlot, this.graphData.stackGraph, this.stackLayout, {staticPlot: true, responsive: true});
+        },
+      });
+    </script>
+  </body>
+</html>
+<style>
+  @media print {
+    .printmedia {
+      page-break-after: always;
+      margin-top: 30px;
+    }
+  }
+</style>
+<style scoped>
+  .head {
+    width: 100%;
+    color: #00215f;
+    font-family: sans-serif;
+  }
+  .title {
+    color: #00215f;
+    font-size: large;
+    font-family:  sans-serif;
+  }
+  .subtitle {
+    color: #00215f;
+    font-size: medium;
+    font-family: sans-serif;
+  }
+  .subtitle-head {
+    padding-right: 8px;
+    color: #00215f;
+    font-size: medium;
+    font-family: sans-serif;
+  }
+</style>

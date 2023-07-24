@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue Ejs Test</title>
+    <link href="/ejsAssets/css.css" rel="stylesheet" />
+    <link href="/ejsAssets/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="/ejsAssets/vuetify.min.css" rel="stylesheet" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-main>
+          <v-container fluid>
+            <div class="mb-3">
+              <v-card color="basil" flat>
+
+                 <!-- headerr -->
+                    <!-- <v-card style="background-color: white !important" class="pa-2"> -->
+                      <!-- <v-row>
+                        <v-col class="d-inline-flex" align-self="center">
+                          <v-avatar>
+                            <img
+                              src="/ejsAssets/images/Lohia_Logo.png"
+                              alt="LOGO"
+                            >
+                          </v-avatar>
+                          <h1 class="head text-center">BREAKDOWN REPORT</h1>
+                        </v-col>
+                      </v-row>
+                      <v-divider></v-divider>
+                      <div v-if="infoData && infoData['date'] && infoData['date']['start'] && infoData['date']['end']" class="pa-2">
+                        <v-row  class="pa-1 d-flex justify-space-between">
+                          <v-col
+                            class="title d-flex justify-left"
+                            >Start Date: {{new Date(infoData['date']['start']).toDateString()}} 
+                          </v-col>
+                          <v-col
+                            class="title justify-right text-right"
+                          >
+                          End Date: {{new Date(infoData['date']['end']).toDateString()}}
+                          </v-col>
+                        </v-row> -->
+                        <v-card style="background-color: white !important" class="pa-2">
+                        <v-container>
+                          <v-row class="mb-5" justify="center">
+                              <img src="/ejsAssets/images/Lohia_Logo.png"
+                                alt="LOGO"
+                                width="300px">
+                          </v-row>
+                          
+                        </v-container>
+                        <v-container>
+                        <v-card elevation="3" style="background-color: white !important" class="pa-5">
+                          <v-row>
+                          <v-row class="mt-5 mb-5" justify="center">
+                              <h1 class="text-uppercase" style="color:#002160;">
+                                {{infoData['type']==='ENERGY'? infoData['type'] +' GRAPH REPORT':'AVERAGE ' +infoData['type'] +' GRAPH REPORT'}}</h1>
+                          </v-row>
+                            
+                          </v-row>
+                          </v-card>
+                          </v-container>
+                        <div class="pa-2 mt-4">
+                          <v-row  class="pa-1 d-flex justify-space-between">
+                            <v-col
+                              class="title d-flex justify-left">
+                            <h4 class="text-uppercase" style="color:#002160;">Start Date: {{new Date(infoData['startTime']).toDateString()}} </h4>
+                            </v-col>
+                            <v-col
+                              class="title justify-right text-right">
+                            <h4 class="text-uppercase" style="color:#002160;">End Date: {{new Date(infoData['endTime']).toDateString()}} </h4>
+                            </v-col>
+                  
+                          
+                          </v-row>
+                          </div>
+
+                        <v-divider></v-divider>
+                      </v-card>
+                        <!-- <div class="printmedia">
+                        </div> -->
+                        <v-row  class="pt-1 d-flex justify-space-between">
+                          <v-col
+                            class=" subtitle mt-2 d-flex justify-start"
+                            cols="12"
+                            sm="12"
+                            md="12"
+                            lg="12"
+                          > <h6 class="subtitle-head">MACHINE: </h6> <span> {{infoData['machines'].toString()}}
+                           </span></v-col
+                          >
+                
+                        </v-row>
+                      </div>
+                    </v-card>
+                  <!-- headerr -->
+
+
+                  <!-- <v-card v-if="infoData && infoData['date'] && infoData['date']['start'] && infoData['date']['end']">
+                    Start Date: {{new Date(infoData['date']['start'])}}  <br> 
+                    End Date: {{new Date(infoData['date']['end'])}}
+                    <div v-for="item in infoData['parameters']">
+                      {{item["name"]}}: {{item["value"].toString()}} <br>
+                    </div>
+                  </v-card>
+                  <v-card v-if="infoData && startDate && startTime && endDate && endTime">
+                    ({{startTime}} {{startDate}} to {{endTime}} {{endDate}})
+                  </v-card> -->
+               
+                  <div class="printmedia">
+                  </div>
+               <!-- <v-card> -->
+                <!-- graph data -->
+                <div class="ma-2">
+                  <v-card elevation="5" class="my-5" v-if="graphData && graphData[0]">
+                    
+                    <!-- <h2 class="text-uppercase pl-5 py-3">graph</h2> -->
+                    <div id="graph"></div>
+                  </v-card>
+                   <v-card v-else elevation="5" class="my-5">
+                        <h2 class="pl-5 py-3">
+                          No Data found for graph
+                        </h2>
+                  </v-card>
+                </div>
+                <!-- graph data -->
+                <!-- </v-card> -->
+              </v-card>
+            </div>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+    <script src="/ejsAssets/plotly-2.8.3.min.js"></script>
+    <script src="/ejsAssets/vue.js"></script>
+    <script src="/ejsAssets/vuetify.js"></script>
+    <!-- <script src="/assets/colors.js"></script> -->
+    <script>
+      new Vue({
+        el: "#app",
+        vuetify: new Vuetify(),
+        data: {
+          infoData: JSON.parse('<%- infoData %>'),
+          graphData: JSON.parse('<%- graphData %>'),
+          layout: JSON.parse('<%- flowData %>')
+        },
+        mounted: function () {
+          graphPlot = document.getElementById("graph");
+          Plotly.newPlot(graphPlot, this.graphData, {...this.layout, height: 650, width: 1050, paper_bgcolor: "rgba(0,0,0,0)", plot_bgcolor: "rgba(0,0,0,0)",}, {staticPlot: true, responsive: true});
+        },
+      });
+    </script>
+  </body>
+</html>
+<style>
+  @media print {
+  .printmedia {
+    page-break-after: always !important;
+    margin-top: 30px;
+  }
+}
+</style>
+<style scoped>
+  .head {
+    width: 100%;
+    color: #00215f;
+    font-family: sans-serif;
+  }
+  .title {
+    color: #00215f;
+    font-size: large;
+    font-family:  sans-serif;
+  }
+  .subtitle {
+    color: #00215f;
+    font-size: medium;
+    font-family: sans-serif;
+  }
+  .subtitle-head {
+    padding-right: 8px;
+    color: #00215f;
+    font-size: medium;
+    font-family: sans-serif;
+  }
+</style>

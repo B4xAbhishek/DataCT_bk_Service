@@ -1,0 +1,11 @@
+/node_modules/
+
+logs
+lib
+.env
+/reports/pdf/*.pdf
+/reports/excel/*.xlsx
+/reports/temp/*.html
+
+/dist/
+/public/

@@ -1,0 +1,1463 @@
+{
+	"info": {
+		"_postman_id": "26b2f40f-adb8-45da-9854-78291a7c9ee1",
+		"name": "DataCT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin@datact.com\",\r\n    \"password\":\"admin@1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth Refresh",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"refresh_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjA2NDQzMzQsImV4cCI6MTYyMzIzNjMzNH0.XLtb6-4Ro9Hk-j8NQxxRxC2j56waPNx8u_KMkVvzB_U\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/auth/refresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/auth/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User CRUD",
+			"item": [
+				{
+					"name": "add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\" : \"USER\",\r\n    \"name\" : \"Vaishnavi J Rao\",\r\n    \"userId\" : \"vjcr96@gmail.com\",\r\n    \"password\" : \"12345\",\r\n    \"phone\" : \"8277208624\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/user/add",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"ADMIN\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/user/update/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"update",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "60a3c3f06a5bb763388c3323"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\":\"vjcr96@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/user/delete",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/user/findAll",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findOne",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/user/findOne/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"findOne",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "60a3c3f06a5bb763388c3323"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Generic CRUD",
+			"item": [
+				{
+					"name": "add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"HARDENING\",\r\n    \"partName\" : \"X_GO_TO\",\r\n    \"machineId\" : \"HARDENING123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/add/:collectionName",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"add",
+								":collectionName"
+							],
+							"variable": [
+								{
+									"key": "collectionName",
+									"value": "machine"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Hardening Machine\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/update/:collectionName/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"update",
+								":collectionName",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "collectionName",
+									"value": "machine"
+								},
+								{
+									"key": "id",
+									"value": "60a3984ff9fc4d634421ef2e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"machineId\" : \"HARDENING123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/delete/:collectionName/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"delete",
+								":collectionName",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "collectionName",
+									"value": "machine"
+								},
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/find/:collectionName?page=1&limit=3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"find",
+								":collectionName"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							],
+							"variable": [
+								{
+									"key": "collectionName",
+									"value": "machine"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findOne",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/find/:collectionName/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"find",
+								":collectionName",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "collectionName",
+									"value": "machine"
+								},
+								{
+									"key": "id",
+									"value": "60ac0a3140172d8e04bcbe5f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "dashboard cards",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/v1/dashboard/cards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"dashboard",
+								"cards"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Filter apis",
+			"item": [
+				{
+					"name": "graph apis",
+					"item": [
+						{
+							"name": "filterGraph_ oee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": \"2021-04-04T20:38:52.308Z\",\r\n                \"end\": \"2021-04-05T20:38:52.308Z\"\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_NAME\",\r\n                    \"value\": [\r\n                        \"IMM-01\", \"IMM-02\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MATERIAL_DESCRIPTION\",\r\n                    \"value\": [\r\n                        \"YBA - RR/RH DOOR TRIM\"\r\n                    ]\r\n                }\r\n            ],\r\n            \"graphs\": [\"ACTUAL_CYCLE_TIME\", \"IDEAL_CYCLE_TIME\"]\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/graph/:collectionName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"graph",
+										":collectionName"
+									],
+									"variable": [
+										{
+											"key": "collectionName",
+											"value": "OEE_MOLD_OUT"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filterGraph_ energy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": \"2021-03-01T18:30:00.000Z\",\r\n                \"end\": \"2021-07-02T18:30:00.000Z\"\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_NAME\",\r\n                    \"value\": [\r\n                        \"IMM-01\",\r\n                        \"IMM-02\",\r\n                        \"IMM-03\",\r\n                        \"IMM-04\",\r\n                        \"IMM-05\",\r\n                        \"IMM-06\",\r\n                        \"IMM-07\",\r\n                        \"IMM-08\",\r\n                        \"IMM-09\",\r\n                        \"IMM-10\",\r\n                        \"IMM-12\"\r\n                    ]\r\n                }\r\n            ],\r\n            \"graphs\": [\r\n                \"WATTS_TOTAL\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/graph/:collectionName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"graph",
+										":collectionName"
+									],
+									"variable": [
+										{
+											"key": "collectionName",
+											"value": "ENERGY"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filterGraph_ breakdown",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": 1620327783446,\r\n                \"end\": 1621579272929\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_ID\",\r\n                    \"value\": [\r\n                        \"IMM-06\",\r\n                        \"IMM-07\",\r\n                        \"IMM-04\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"REASON\",\r\n                    \"value\": [\r\n                        \"Heater Prob Barrel\",\r\n                        \"TUBLER HEATER PROBLEM\",\r\n                        \"Nozzle Tip Problem\",\r\n                        \"RIB STICKING\",\r\n                        \"IMM Locating Ring Prob\",\r\n                        \"Limit Switch Problem\"\r\n                    ]\r\n                }\r\n            ],\r\n            \"graphs\": [\r\n                \"Heater Prob Barrel\",\r\n                \"TUBLER HEATER PROBLEM\",\r\n                \"Nozzle Tip Problem\",\r\n                \"RIB STICKING\",\r\n                \"IMM Locating Ring Prob\",\r\n                \"Limit Switch Problem\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/stackedGraph/:collectionName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"stackedGraph",
+										":collectionName"
+									],
+									"variable": [
+										{
+											"key": "collectionName",
+											"value": "BREAKDOWN_ANALYSIS"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filterGraph_ plannedAnalysis",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": 1619679709229,\r\n                \"end\": 1620123170715\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_ID\",\r\n                    \"value\": [\r\n                        \"IMM-03\",\r\n                        \"IMM-07\",\r\n                        \"IMM-04\"\r\n                    ]\r\n                }\r\n                \r\n            ]\r\n            \r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/stackedGraph/plannedAnalysis/:collectionName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"stackedGraph",
+										"plannedAnalysis",
+										":collectionName"
+									],
+									"variable": [
+										{
+											"key": "collectionName",
+											"value": "PLANNED_ANALYSIS"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filterGraph_ rejctionAnalysis",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": 1617215400000,\r\n                \"end\": 1627669800000\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_ID\",\r\n                    \"value\": [\r\n                        \"IMM-01\",\r\n                        \"IMM-02\",\r\n                        \"IMM-03\",\r\n                        \"IMM-04\",\r\n                        \"IMM-05\",\r\n                        \"IMM-06\",\r\n                        \"IMM-07\",\r\n                        \"IMM-08\",\r\n                        \"IMM-09\",\r\n                        \"IMM-10\",\r\n                        \"IMM-11\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MOULD\",\r\n                    \"value\": [\r\n                        \"YBA - FR/LH DOOR TRIM\",\r\n                        \"YL1 - GARNISH COWEL LHD RH\",\r\n                        \"YL1 - GARNISH COWEL LHD RH\"\r\n                    ]\r\n                }\r\n                \r\n            ],\r\n            \"graphs\": [\"ASSEMBLY - LOCK BROKEN\", \"ASSEMBLY - PAINT NG\"]\r\n            \r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/stackedGraph/rejectionAnalysis/:collectionName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"stackedGraph",
+										"rejectionAnalysis",
+										":collectionName"
+									],
+									"variable": [
+										{
+											"key": "collectionName",
+											"value": "REJECTION_ANALYSIS"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "parameter apis for mapping",
+					"item": [
+						{
+							"name": "material list for breakdown",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/breakDown/materialList/:collectionName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"breakDown",
+										"materialList",
+										":collectionName"
+									],
+									"variable": [
+										{
+											"key": "collectionName",
+											"value": "BREAKDOWN_ANALYSIS"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get machine ids",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/machineId/:collectionName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"machineId",
+										":collectionName"
+									],
+									"variable": [
+										{
+											"key": "collectionName",
+											"value": "SHIFT_MAINTAINANCE"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "material list for OEE",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/oee/materialList/:collectionName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"oee",
+										"materialList",
+										":collectionName"
+									],
+									"variable": [
+										{
+											"key": "collectionName",
+											"value": "OEE_MOLD_OUT"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "material list for Rejection",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/rejection/materialList/:collectionName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"rejection",
+										"materialList",
+										":collectionName"
+									],
+									"variable": [
+										{
+											"key": "collectionName",
+											"value": "REJECTION_ANALYSIS"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get reasons",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/reasons/:collectionName",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"reasons",
+										":collectionName"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "2",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "collectionName",
+											"value": "REJECTION_REASONS"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "counter apis",
+					"item": [
+						{
+							"name": "oee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": \"2021-04-04T20:38:52.308Z\",\r\n                \"end\": \"2021-04-06T20:38:52.308Z\"\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_NAME\",\r\n                    \"value\": [\r\n                        \"IMM-01\", \"IMM-02\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MATERIAL_DESCRIPTION\",\r\n                    \"value\": [\r\n                        \"YBA - RR/RH DOOR TRIM\", \"YBA - FR/LH DOOR TRIM\",\"YCA - TRIM COM QTR LOWER FR (RH & LH\"\r\n                    ]\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/counters/OEE",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"counters",
+										"OEE"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "breakdown",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": 1620327783446,\r\n                \"end\": 1621579272929\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_ID\",\r\n                    \"value\": [\r\n                        \"IMM-06\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"REASON\",\r\n                    \"value\": [\r\n                        \"Heater Prob Barrel\",\r\n                        \"TUBLER HEATER PROBLEM\",\r\n                        \"Nozzle Tip Problem\",\r\n                        \"RIB STICKING\",\r\n                        \"IMM Locating Ring Prob\",\r\n                        \"Limit Switch Problem\"\r\n                    ]\r\n                }\r\n            ]\r\n            \r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/counters/breakDown",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"counters",
+										"breakDown"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "plannedAnalysis",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": 1619679709229,\r\n                \"end\": 1620123170715\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_ID\",\r\n                    \"value\": [\r\n                        \"IMM-03\", \"IMM-04\",\"IMM-01\"\r\n                    ]\r\n                }\r\n                \r\n            ]\r\n            \r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/counters/plannedDowntime",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"counters",
+										"plannedDowntime"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "rejctionAnalysis",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": 1621344709185 ,\r\n                \"end\": 1621578759998\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_ID\",\r\n                    \"value\": [\r\n                        \"IMM-02\", \"IMM-01\"\r\n                    ]\r\n                }\r\n                \r\n            ],\r\n            \"graphs\": [\"ASSEMBLY - LOCK BROKEN\", \"ASSEMBLY - PAINT NG\", \"WARPAGE\"]\r\n            \r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/counters/rejection",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"counters",
+										"rejection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "enrgy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": \"2021-03-04T20:38:52.308Z\" ,\r\n                \"end\": \"2021-09-06T20:38:52.308Z\"\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_NAME\",\r\n                    \"value\": [\r\n                        \"IMM-07\", \"IMM-04\"\r\n                    ]\r\n                }\r\n                \r\n            ]\r\n            \r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v1/filter/counters/energy",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v1",
+										"filter",
+										"counters",
+										"energy"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "filterTable",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": \"1620327783446\",\r\n                \"end\": \"1621579272929\"\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_ID\",\r\n                    \"value\": [\r\n                        \"IMM-06\", \"IMM-07\"\r\n                    ]\r\n                }\r\n            ],\r\n            \"page\": 1,\r\n            \"limit\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/filter/:collectionName",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"filter",
+								":collectionName"
+							],
+							"variable": [
+								{
+									"key": "collectionName",
+									"value": "BREAKDOWN_ANALYSIS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filterTable_ oee search",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": \"2021-04-04T20:38:52.308Z\",\r\n                \"end\": \"2021-04-05T20:38:52.308Z\"\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_NAME\",\r\n                    \"value\": [\r\n                        \"IMM-01\", \"IMM-02\"\r\n                    ]\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/filter/:collectionName",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"filter",
+								":collectionName"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "MACHINE_NAME",
+									"disabled": true
+								},
+								{
+									"key": "sortDirection",
+									"value": "-1",
+									"disabled": true
+								},
+								{
+									"key": "searchString",
+									"value": "IMM-02",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "collectionName",
+									"value": "OEE_MOLD_OUT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filterTable_ energy search",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"conditions\": [\r\n        {\r\n            \"date\": {\r\n                \"start\": \"2021-03-01T18:30:00.000Z\",\r\n                \"end\": \"2021-07-02T18:30:00.000Z\"\r\n            },\r\n            \"parameters\": [\r\n                {\r\n                    \"name\": \"SHIFT\",\r\n                    \"value\": [\r\n                        \"A\",\r\n                        \"B\",\r\n                        \"C\"\r\n                    ]\r\n                },\r\n                {\r\n                    \"name\": \"MACHINE_NAME\",\r\n                    \"value\": [\r\n                        \"IMM-01\",\r\n                        \"IMM-02\",\r\n                        \"IMM-03\",\r\n                        \"IMM-04\",\r\n                        \"IMM-05\",\r\n                        \"IMM-06\",\r\n                        \"IMM-07\",\r\n                        \"IMM-08\",\r\n                        \"IMM-09\",\r\n                        \"IMM-10\",\r\n                        \"IMM-12\"\r\n                    ]\r\n                }\r\n            ],\r\n            \"graphs\": [\r\n                \"WATTS_TOTAL\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v1/filter/:collectionName",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"filter",
+								":collectionName"
+							],
+							"variable": [
+								{
+									"key": "collectionName",
+									"value": "ENERGY"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AddCsv api",
+			"item": [
+				{
+					"name": "http://localhost:8050/v1/addBreakRecord/:collectionName",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Triofi-Admin/Downloads/dummy.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8050/v1/addBreakRecord/:collectionName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8050",
+							"path": [
+								"v1",
+								"addBreakRecord",
+								":collectionName"
+							],
+							"variable": [
+								{
+									"key": "collectionName",
+									"value": "BREAKDOWN_REASONS"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000"
+		},
+		{
+			"key": "accessToken",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjQzNzQ5NjEsImV4cCI6MTYyNDM5NjU2MX0.sVgHdI6HKIOy2M6rJi-g0xkdSl4e8NsZJ-avNhHPxUQ"
+		}
+	]
+}
