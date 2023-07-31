@@ -4,11 +4,12 @@
   "description": "Backend Service for DATACT",
   "scripts": {
     "start": "npm run build:live",
+    "dev": "nodemon ./src/index.ts",
     "build": "./node_modules/.bin/tsc -p .",
-    "build-fr": "cd ..\\fr-service && npm run build && npm run generate",
-    "build-fr-linux": "cd ../fr-service && npm run build && npm run generate",
-    "copy": "cd ..\\fr-service && XCOPY dist\\** ..\\bk-service\\public\\ /E/H/C/I/Y",
-    "copy-linux": "cd ../fr-service/dist && cp -r ./ ../../bk-service/public/",
+    "build-fr": "cd ..\\DataCT_fr_service && npm run build && npm run generate",
+    "build-fr-linux": "cd ../DataCT_fr_service && npm run build && npm run generate",
+    "copy": "cd ..\\DataCT_fr_service && XCOPY dist\\** ..\\DataCT_bk_service\\public\\ /E/H/C/I/Y",
+    "copy-linux": "cd ../DataCT_fr_service/dist && cp -r ./ ../../DataCT_bk_service/public/",
     "build:live": "nodemon --watch \"src/**\" --ext \"ts\" --exec \"ts-node\" src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
