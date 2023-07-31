@@ -1160,7 +1160,24 @@ export async function getAllMachineData(
   res: Response,
   next: NextFunction
 ) {
-  DynamicModels.find("MACHINE_LIST", {}, {}, {}, (err: any, result: any) => {
+  let query: any = {};
+  let projection: any = {};
+  if (req.query.searchData == '' || req.query.searchData) {
+    projection.MACHINE_DISPLAY = 1;
+    projection.MACHINE_ID = 1;
+  }
+  
+  if (req.query.searchData) {
+    query['$or'] = [
+      { MACHINE_INT: { $regex: req.query.searchData, $options: 'i' } },
+      { MACHINE_ID: { $regex: req.query.searchData, $options: 'i' } },
+      { MACHINE_NAME: { $regex: req.query.searchData, $options: 'i' } },
+      { MACHINE_DISPLAY: { $regex: req.query.searchData, $options: 'i' } },
+      { MACHINE_LV: { $regex: req.query.searchData, $options: 'i' } },
+    ]
+  }
+
+  DynamicModels.find("MACHINE_LIST", query, projection, {}, (err: any, result: any) => {
     if (err || !result) {
       req.apiStatus = {
         isSuccess: false,

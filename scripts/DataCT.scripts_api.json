@@ -1391,7 +1391,7 @@
 			"name": "AddCsv api",
 			"item": [
 				{
-					"name": "http://localhost:8050/v1/addBreakRecord/:collectionName",
+					"name": "http://localhost:9600/v1/addBreakRecord/:collectionName",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -1406,12 +1406,12 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8050/v1/addBreakRecord/:collectionName",
+							"raw": "http://localhost:9600/v1/addBreakRecord/:collectionName",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8050",
+							"port": "9600",
 							"path": [
 								"v1",
 								"addBreakRecord",

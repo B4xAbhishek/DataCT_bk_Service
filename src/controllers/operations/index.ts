@@ -246,6 +246,19 @@ export function findAllData(
     if (req.query.limit && parseInt(req.query.limit) > 0) {
       limit = parseInt(req.query.limit);
     }
+
+    if (req.query.searchData == '' || req.query.searchData) {
+      projection.machineName = 1;
+    }
+    
+    if (req.query.searchData) {
+      query['$or'] = [
+        { machineCategory: { $regex: req.query.searchData, $options: 'i' } },
+        { machineCode: { $regex: req.query.searchData, $options: 'i' } },
+        { machineName: { $regex: req.query.searchData, $options: 'i' } },
+        { machineMake: { $regex: req.query.searchData, $options: 'i' } },
+      ]
+    }
   } catch (err) {
     req.apiStatus = {
       isSuccess: false,

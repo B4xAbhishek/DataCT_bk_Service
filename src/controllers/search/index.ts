@@ -5254,7 +5254,7 @@ export async function machineStatusData(
       let lunchBreak: any = [];
       let shiftName: any = null;
       let count: any = 1;
-      shiftDetails = shiftDetails.toJSON();
+      shiftDetails = shiftDetails ? shiftDetails.toJSON() : {};
       while (
         shiftDetails[`SHIFT_${count}_LUNCH_START_TIME`] &&
         shiftDetails[`SHIFT_${count}_LUNCH_END_TIME`]
