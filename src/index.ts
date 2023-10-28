@@ -113,7 +113,6 @@ passport.use(
     console.log('token', token)
 
     Token.findByToken(token, function (err: Error, tokenFromDb: any) {
-      console.log('tokenFromDb', tokenFromDb)
 
       if (err) {
         let responseObj = new ResponseObj(401, 'Unauthorized', undefined)

@@ -26,7 +26,6 @@ export function getCollectionObject(collectionName: string, schema: any) {
     logger.error(logger.DEFAULT_MODULE, '', "dynamic models error : " + err);
     //console.log("error = "+err);
   }
-  console.log("collection model", collection["model"]);
   
   return collection["model"];
 }

@@ -873,7 +873,6 @@ export const searchDataForGraph = (collectionName: any, condition: JSON) => {
       formKeyValue("count", countOfRecords, resultElement);
 
       result = resultElement;
-      console.log("finalResult",result);
       
 
       resolve(result);

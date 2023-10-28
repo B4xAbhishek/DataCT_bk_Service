@@ -14,7 +14,9 @@ export class DB {
         bufferMaxEntries: 0,
         useCreateIndex: true,
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        // user: "superadmin",
+        // pass: "datact@1234",
       },
       (err: Error) => {
         if (err) {
